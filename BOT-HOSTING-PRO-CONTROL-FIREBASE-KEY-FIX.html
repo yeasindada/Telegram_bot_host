@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>BOT HOSTING PRO • Black & Gold Edition</title>
+  <style>
+    :root {
+      --bg: #090806;
+      --card: #12100c;
+      --card-2: #18140e;
+      --border: #3a2e1a;
+      --gold: #d4af37;
+      --gold-light: #f3d576;
+      --gold-dim: rgba(212, 175, 55, 0.14);
+      --text: #f5efe2;
+      --muted: #a69982;
+      --green: #38c172;
+      --red: #e35d5b;
+      --blue: #4da3ff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #1b150b 0%, var(--bg) 55%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 14px;
+    }
+
+    .app-wrap {
+      max-width: 540px;
+      margin: 0 auto;
+      padding-bottom: 30px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(145deg, #c69c2b, #6f5212);
+      color: #0b0906;
+      font-weight: 900;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(212, 175, 55, 0.25);
+    }
+
+    .brand h1 {
+      font-size: 16px;
+      letter-spacing: 0.6px;
+      color: var(--gold-light);
+    }
+
+    .brand p {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.7px;
+      margin-top: 2px;
+    }
+
+    .badge-edition {
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--gold-light);
+      font-size: 10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.5px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, var(--card-2), var(--card));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 15px;
+      margin-bottom: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    }
+
+    .hero h2 {
+      font-size: 20px;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .hero p {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .stat-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .stat-box span {
+      display: block;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.6px;
+      margin-bottom: 5px;
+    }
+
+    .stat-box strong {
+      font-size: 18px;
+      color: var(--gold-light);
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 12px;
+      scrollbar-width: none;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-btn {
+      flex: 0 0 auto;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #c69c2b, #8b6914);
+      color: #0c0905;
+      border-color: var(--gold-light);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .section-head h3 {
+      font-size: 13px;
+      color: var(--gold-light);
+      letter-spacing: 0.5px;
+    }
+
+    .section-head span {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .project-card {
+      background: #0e0c09;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 13px;
+      margin-bottom: 10px;
+    }
+
+    .proj-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .proj-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .proj-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .status-pill {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--muted);
+    }
+
+    .status-pill.RUNNING {
+      color: #5ee394;
+      border-color: rgba(56, 193, 114, 0.45);
+      background: rgba(56, 193, 114, 0.14);
+    }
+
+    .status-pill.ERROR {
+      color: #ff8a88;
+      border-color: rgba(227, 93, 91, 0.45);
+      background: rgba(227, 93, 91, 0.14);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      border: 1px solid var(--border);
+      background: var(--card-2);
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 8px 11px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #c69c2b, #8b6914);
+      color: #0d0a06;
+      border-color: var(--gold-light);
+    }
+
+    .btn-danger {
+      background: rgba(227, 93, 91, 0.15);
+      color: #ff9c9a;
+      border-color: rgba(227, 93, 91, 0.4);
+    }
+
+    .live-box {
+      background: #14110c;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 10px;
+    }
+
+    .live-label {
+      font-size: 10px;
+      color: var(--muted);
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .live-url {
+      display: block;
+      font-size: 11.5px;
+      color: var(--gold-light);
+      word-break: break-all;
+      margin-bottom: 8px;
+      text-decoration: underline;
+    }
+
+    label {
+      display: block;
+      font-size: 11.5px;
+      color: var(--gold-light);
+      margin-bottom: 5px;
+      margin-top: 10px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select,
+    textarea {
+      width: 100%;
+      background: #0c0a07;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      color: var(--text);
+      padding: 10px 12px;
+      font-size: 13px;
+      outline: none;
+    }
+
+    textarea.code-area {
+      font-family: "Fira Code", "Courier New", monospace;
+      font-size: 12.5px;
+      line-height: 1.45;
+      min-height: 240px;
+      tab-size: 4;
+      white-space: pre;
+      overflow-x: auto;
+      background: #080705;
+      color: #f8e5a8;
+    }
+
+    textarea.req-area {
+      font-family: "Fira Code", "Courier New", monospace;
+      font-size: 12px;
+      min-height: 75px;
+      background: #080705;
+      color: #d7cbb4;
+    }
+
+    input[type="file"] {
+      width: 100%;
+      background: #0c0a07;
+      border: 1px dashed var(--border);
+      border-radius: 11px;
+      padding: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .code-cmd {
+      background: #080705;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 11.5px;
+      color: var(--gold-light);
+      word-break: break-all;
+      margin: 8px 0;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1f190f;
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      z-index: 999;
+      display: none;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 10.5px;
+      color: var(--muted);
+      margin-top: 16px;
+      letter-spacing: 0.4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-wrap">
+    <!-- Top Header -->
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">B</div>
+        <div>
+          <h1>BOT HOSTING PRO</h1>
+          <p>TELEGRAM BOT CONTROL PANEL</p>
+        </div>
+      </div>
+      <div class="badge-edition">• BLACK &amp; GOLD</div>
+    </div>
+
+    <!-- Auth View -->
+    <div id="authSection" class="card">
+      <div class="section-head">
+        <h3>ACCOUNT LOGIN / SIGN UP</h3>
+        <span>Firebase Auth</span>
+      </div>
+      <p style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        আপনার Firebase অ্যাকাউন্ট দিয়ে লগইন করুন। Termux Worker-এও এই একই ইমেইল ও পাসওয়ার্ড ব্যবহার করবেন।
+      </p>
+      <label>Email Address</label>
+      <input type="email" id="authEmail" placeholder="example@gmail.com" />
+      <label>Password</label>
+      <input type="password" id="authPass" placeholder="••••••••" />
+      <div class="btn-row" style="margin-top:14px;">
+        <button class="btn btn-gold" style="flex:1;" onclick="loginUser()">LOGIN</button>
+        <button class="btn" style="flex:1;" onclick="signupUser()">CREATE ACCOUNT</button>
+      </div>
+    </div>
+
+    <!-- Main App View -->
+    <div id="mainApp" class="hidden">
+      <div class="card hero">
+        <h2>Manage your bots.</h2>
+        <p>কোড লিখুন অথবা ফাইল আপলোড করে সেভ করুন, START চাপুন এবং সরাসরি লাইভ লিংক পান।</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <span>PROJECTS</span>
+          <strong id="statProjects">0</strong>
+        </div>
+        <div class="stat-box">
+          <span>FILES</span>
+          <strong id="statFiles">0</strong>
+        </div>
+        <div class="stat-box">
+          <span>WORKER</span>
+          <strong>AUTO</strong>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="nav-tabs">
+        <button class="tab-btn active" id="tabBtn-dashboard" onclick="switchTab('dashboard')">Dashboard</button>
+        <button class="tab-btn" id="tabBtn-editor" onclick="switchTab('editor', true)">Code Editor</button>
+        <button class="tab-btn" id="tabBtn-upload" onclick="switchTab('upload')">Upload Files</button>
+        <button class="tab-btn" id="tabBtn-worker" onclick="switchTab('worker')">Worker Setup</button>
+        <button class="tab-btn" id="tabBtn-account" onclick="switchTab('account')">Account</button>
+      </div>
+
+      <!-- TAB 1: Dashboard -->
+      <div id="tab-dashboard" class="card">
+        <div class="section-head">
+          <h3>MY PYTHON PROJECTS</h3>
+          <span>Live Link &amp; Controls</span>
+        </div>
+        <div id="projectList">
+          <p style="font-size:12px; color:var(--muted);">লোড হচ্ছে...</p>
+        </div>
+      </div>
+
+      <!-- TAB 2: Pydroid 3 Style Code Editor -->
+      <div id="tab-editor" class="card hidden">
+        <div class="section-head">
+          <h3>PYTHON CODE EDITOR</h3>
+          <span>Pydroid 3 Mode</span>
+        </div>
+        <p style="font-size:12px; color:var(--muted); margin-bottom:6px;">
+          এখানে সরাসরি নতুন Python কোড লিখুন বা পুরোনো প্রজেক্ট এডিট করে <strong>SAVE &amp; START</strong> চাপুন।
+        </p>
+
+        <label>Select Existing Project (Optional)</label>
+        <select id="editorProjectSelect" onchange="loadProjectIntoEditor()">
+          <option value="">+ Create New Project (Blank)</option>
+        </select>
+
+        <label>Project Name</label>
+        <input type="text" id="editorProjectName" placeholder="যেমন: my_mini_bot" />
+
+        <div class="btn-row" style="margin-top:10px; margin-bottom:2px;">
+          <button class="btn" onclick="insertMiniAppTemplate()">+ Mini App Design Template বসান</button>
+          <button class="btn" onclick="clearEditor()">New Blank Code</button>
+        </div>
+
+        <label>main.py (Python Code)</label>
+        <textarea id="editorMainPy" class="code-area" spellcheck="false" placeholder="# এখানে নতুন Python কোড লিখুন..."></textarea>
+
+        <label>requirements.txt (Optional - যেমন: flask, pyTelegramBotAPI)</label>
+        <textarea id="editorReqTxt" class="req-area" spellcheck="false" placeholder="flask"></textarea>
+
+        <div class="btn-row" style="margin-top:14px;">
+          <button class="btn" style="flex:1;" onclick="saveEditorProject(false)">SAVE ONLY</button>
+          <button class="btn btn-gold" style="flex:1;" onclick="saveEditorProject(true)">SAVE &amp; START</button>
+        </div>
+      </div>
+
+      <!-- TAB 3: Upload Files -->
+      <div id="tab-upload" class="card hidden">
+        <div class="section-head">
+          <h3>UPLOAD PROJECT FILES</h3>
+          <span>main.py Required</span>
+        </div>
+        <label>Project Name</label>
+        <input type="text" id="uploadProjectName" placeholder="যেমন: telegram_bot" />
+
+        <label>Select Files (.py, .txt, .json)</label>
+        <input type="file" id="uploadFilesInput" multiple accept=".py,.txt,.json,.yaml,.yml,.ini,.md" />
+
+        <button class="btn btn-gold" style="width:100%; margin-top:14px;" onclick="uploadProjectFiles()">
+          SAVE PROJECT FILES
+        </button>
+      </div>
+
+      <!-- TAB 4: Worker Setup -->
+      <div id="tab-worker" class="card hidden">
+        <div class="section-head">
+          <h3>TERMUX WORKER SETUP</h3>
+          <span>Auto Tunnel</span>
+        </div>
+        <p style="font-size:12px; color:var(--muted); line-height:1.5;">
+          ১. Termux-এ <strong>python</strong> ও <strong>cloudflared</strong> ইনস্টল করুন:
+        </p>
+        <div class="code-cmd">pkg update -y &amp;&amp; pkg install python cloudflared -y</div>
+        <p style="font-size:12px; color:var(--muted); line-height:1.5;">
+          ২. Worker স্ক্রিপ্ট চালু করুন এবং আপনার Firebase ইমেইল ও পাসওয়ার্ড দিয়ে লগইন করুন:
+        </p>
+        <div class="code-cmd">python ~/bot_hosting_worker_control_KEYFIX.py</div>
+        <p style="font-size:12px; color:var(--muted); line-height:1.5;">
+          ৩. স্ক্রিন বন্ধ থাকলেও বট চালু রাখতে Termux নোটিফিকেশন থেকে <strong>Acquire wakelock</strong> চালু রাখুন।
+        </p>
+      </div>
+
+      <!-- TAB 5: Account -->
+      <div id="tab-account" class="card hidden">
+        <div class="section-head">
+          <h3>ACCOUNT SETTINGS</h3>
+          <span>Active Session</span>
+        </div>
+        <p style="font-size:12.5px; color:var(--muted); margin-bottom:12px;">
+          Logged in as: <strong id="userEmailLabel" style="color:var(--gold-light);">-</strong>
+        </p>
+        <button class="btn btn-danger" style="width:100%;" onclick="logoutUser()">LOGOUT</button>
+      </div>
+
+      <div class="footer-note">BOT HOSTING PRO • BLACK &amp; GOLD EDITION</div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- Firebase Compat SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDFdPaMtvNcyP_ZFecXD1tKgP-XFhm6uHw",
+      authDomain: "bothost-5a1e7.firebaseapp.com",
+      databaseURL: "https://bothost-5a1e7-default-rtdb.firebaseio.com",
+      projectId: "bothost-5a1e7",
+      storageBucket: "bothost-5a1e7.firebasestorage.app"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
+
+    let currentUser = null;
+    let projectsCache = {};
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.style.display = "block";
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => {
+        t.style.display = "none";
+      }, 3000);
+    }
+
+    function switchTab(tabName, resetEditorForNew = false) {
+      ["dashboard", "editor", "upload", "worker", "account"].forEach((name) => {
+        document.getElementById("tab-" + name).classList.add("hidden");
+        document.getElementById("tabBtn-" + name).classList.remove("active");
+      });
+      document.getElementById("tab-" + tabName).classList.remove("hidden");
+      document.getElementById("tabBtn-" + tabName).classList.add("active");
+
+      if (tabName === "editor" && resetEditorForNew) {
+        clearEditor();
+      }
+    }
+
+    function loginUser() {
+      const email = document.getElementById("authEmail").value.trim();
+      const pass = document.getElementById("authPass").value;
+      if (!email || !pass) return showToast("ইমেইল ও পাসওয়ার্ড দিন");
+      auth.signInWithEmailAndPassword(email, pass)
+        .then(() => showToast("লগইন সফল হয়েছে"))
+        .catch((err) => showToast("Error: " + err.message));
+    }
+
+    function signupUser() {
+      const email = document.getElementById("authEmail").value.trim();
+      const pass = document.getElementById("authPass").value;
+      if (!email || !pass) return showToast("ইমেইল ও পাসওয়ার্ড দিন");
+      auth.createUserWithEmailAndPassword(email, pass)
+        .then(() => showToast("অ্যাকাউন্ট তৈরি হয়েছে"))
+        .catch((err) => showToast("Error: " + err.message));
+    }
+
+    function logoutUser() {
+      auth.signOut().then(() => showToast("লগআউট সম্পন্ন"));
+    }
+
+    auth.onAuthStateChanged((user) => {
+      currentUser = user;
+      if (user) {
+        document.getElementById("authSection").classList.add("hidden");
+        document.getElementById("mainApp").classList.remove("hidden");
+        document.getElementById("userEmailLabel").textContent = user.email;
+        listenProjects(user.uid);
+      } else {
+        document.getElementById("authSection").classList.remove("hidden");
+        document.getElementById("mainApp").classList.add("hidden");
+      }
+    });
+
+    function listenProjects(uid) {
+      db.ref("projects/" + uid).on("value", (snap) => {
+        projectsCache = snap.val() || {};
+        renderProjects();
+        updateEditorDropdown();
+      });
+    }
+
+    function renderProjects() {
+      const container = document.getElementById("projectList");
+      const entries = Object.entries(projectsCache);
+      let totalFiles = 0;
+
+      entries.forEach(([, proj]) => {
+        totalFiles += Object.keys(proj.files || {}).length;
+      });
+
+      document.getElementById("statProjects").textContent = entries.length;
+      document.getElementById("statFiles").textContent = totalFiles;
+
+      if (!entries.length) {
+        container.innerHTML = `<p style="font-size:12px; color:var(--muted);">এখনো কোনো প্রজেক্ট নেই। <strong>Code Editor</strong> বা <strong>Upload Files</strong> থেকে নতুন প্রজেক্ট তৈরি করুন।</p>`;
+        return;
+      }
+
+      container.innerHTML = entries.map(([id, proj]) => {
+        const status = proj.status || "STOPPED";
+        const fileCount = Object.keys(proj.files || {}).length;
+        const liveUrl = proj.liveUrl || "";
+
+        return `
+          <div class="project-card">
+            <div class="proj-top">
+              <div>
+                <div class="proj-title">${escapeHtml(proj.name || id)}</div>
+                <div class="proj-sub">${fileCount} Files • Firebase Database</div>
+              </div>
+              <span class="status-pill ${status}">${status}</span>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn btn-gold" onclick="sendBotCommand('${id}', 'start')">START</button>
+              <button class="btn" onclick="sendBotCommand('${id}', 'stop')">STOP</button>
+              <button class="btn" onclick="sendBotCommand('${id}', 'restart')">RESTART</button>
+              <button class="btn" onclick="editProjectCode('${id}')">EDIT CODE</button>
+              <button class="btn btn-danger" onclick="deleteProject('${id}')">DELETE</button>
+            </div>
+
+            ${liveUrl ? `
+              <div class="live-box">
+                <div class="live-label">LIVE LINK:</div>
+                <a class="live-url" href="${escapeHtml(liveUrl)}" target="_blank">${escapeHtml(liveUrl)}</a>
+                <div class="btn-row" style="margin-bottom:0;">
+                  <button class="btn btn-gold" onclick="window.open('${escapeHtml(liveUrl)}', '_blank')">OPEN LINK</button>
+                  <button class="btn" onclick="copyText('${escapeHtml(liveUrl)}')">COPY LINK</button>
+                </div>
+              </div>
+            ` : `
+              <div class="live-box">
+                <div class="live-label">LIVE LINK:</div>
+                <div style="font-size:11.5px; color:var(--muted);">START চাপলে এখানে trycloudflare.com লাইভ লিংক চলে আসবে।</div>
+              </div>
+            `}
+          </div>
+        `;
+      }).join("");
+    }
+
+    function updateEditorDropdown() {
+      const sel = document.getElementById("editorProjectSelect");
+      const currentVal = sel.value;
+      sel.innerHTML = `<option value="">+ Create New Project (Blank)</option>` +
+        Object.entries(projectsCache).map(([id, proj]) =>
+          `<option value="${id}">${escapeHtml(proj.name || id)}</option>`
+        ).join("");
+      if (currentVal && projectsCache[currentVal]) {
+        sel.value = currentVal;
+      } else {
+        sel.value = "";
+      }
+    }
+
+    function loadProjectIntoEditor() {
+      const id = document.getElementById("editorProjectSelect").value;
+      if (!id || !projectsCache[id]) {
+        document.getElementById("editorProjectName").value = "";
+        document.getElementById("editorMainPy").value = "";
+        document.getElementById("editorReqTxt").value = "";
+        return;
+      }
+      const proj = projectsCache[id];
+      document.getElementById("editorProjectName").value = proj.name || "";
+      let mainCode = "";
+      let reqCode = "";
+
+      Object.values(proj.files || {}).forEach((f) => {
+        if (f.name === "main.py") mainCode = f.content || "";
+        if (f.name === "requirements.txt") reqCode = f.content || "";
+      });
+
+      document.getElementById("editorMainPy").value = mainCode;
+      document.getElementById("editorReqTxt").value = reqCode;
+    }
+
+    function editProjectCode(projectId) {
+      switchTab("editor", false);
+      document.getElementById("editorProjectSelect").value = projectId;
+      loadProjectIntoEditor();
+    }
+
+    function clearEditor() {
+      document.getElementById("editorProjectSelect").value = "";
+      document.getElementById("editorProjectName").value = "";
+      document.getElementById("editorMainPy").value = "";
+      document.getElementById("editorReqTxt").value = "";
+    }
+
+    function insertMiniAppTemplate() {
+      document.getElementById("editorReqTxt").value = "flask";
+      document.getElementById("editorMainPy").value = `from flask import Flask, render_template_string
+
+BOT_TOKEN = "YOUR_BOT_TOKEN_HERE"
+app = Flask(__name__)
+
+HTML_PAGE = """
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Telegram Mini App</title>
+  <style>
+    body {
+      background: #0a0907;
+      color: #f5efe2;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 16px;
+    }
+    .box {
+      background: #16120c;
+      border: 1px solid #d4af37;
+      border-radius: 18px;
+      padding: 24px;
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+    }
+    h2 { color: #f3d576; margin-bottom: 8px; }
+    p { color: #b5a890; font-size: 14px; }
+    .btn {
+      margin-top: 16px;
+      background: linear-gradient(135deg, #c69c2b, #8b6914);
+      color: #0b0906;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: bold;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Telegram Mini App Live!</h2>
+    <p>আপনার নিজস্ব Python কোড থেকে এই ডিজাইনটি লোড হয়েছে।</p>
+    <button class="btn" onclick="alert('Bot Connected!')">START ACTION</button>
+  </div>
+</body>
+</html>
+"""
+
+@app.route("/")
+def home():
+    return render_template_string(HTML_PAGE)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+`;
+      showToast("Mini App টেমপ্লেট বসানো হয়েছে");
+    }
+
+    async function saveEditorProject(autoStart) {
+      if (!currentUser) return;
+      const existingId = document.getElementById("editorProjectSelect").value;
+      const name = document.getElementById("editorProjectName").value.trim() || "my_bot";
+      const mainCode = document.getElementById("editorMainPy").value;
+      const reqCode = document.getElementById("editorReqTxt").value.trim();
+
+      if (!mainCode.trim()) {
+        return showToast("main.py কোড খালি রাখা যাবে না!");
+      }
+
+      const files = {
+        file_000: { name: "main.py", content: mainCode }
+      };
+      if (reqCode) {
+        files.file_001 = { name: "requirements.txt", content: reqCode };
+      }
+
+      const projRef = existingId
+        ? db.ref(`projects/${currentUser.uid}/${existingId}`)
+        : db.ref(`projects/${currentUser.uid}`).push();
+
+      const payload = {
+        name: name,
+        files: files,
+        updatedAt: firebase.database.ServerValue.TIMESTAMP
+      };
+      if (!existingId) {
+        payload.status = "STOPPED";
+        payload.liveUrl = "";
+        payload.createdAt = firebase.database.ServerValue.TIMESTAMP;
+      }
+
+      await projRef.update(payload);
+
+      const savedId = projRef.key;
+      showToast("প্রজেক্ট সেভ হয়েছে!");
+
+      if (autoStart) {
+        await sendBotCommand(savedId, "start");
+        switchTab("dashboard");
+      }
+    }
+
+    async function uploadProjectFiles() {
+      if (!currentUser) return;
+      const name = document.getElementById("uploadProjectName").value.trim() || "bot";
+      const fileInput = document.getElementById("uploadFilesInput");
+      const fileList = Array.from(fileInput.files || []);
+
+      if (!fileList.length) return showToast("ফাইল নির্বাচন করুন");
+
+      const filesObj = {};
+      let hasMain = false;
+
+      for (let i = 0; i < fileList.length; i++) {
+        const f = fileList[i];
+        if (f.name === "main.py") hasMain = true;
+        const text = await f.text();
+        const key = "file_" + String(i).padStart(3, "0");
+        filesObj[key] = { name: f.name, content: text };
+      }
+
+      if (!hasMain) return showToast("ফাইলগুলোর মধ্যে main.py থাকতে হবে!");
+
+      const projRef = db.ref(`projects/${currentUser.uid}`).push();
+      await projRef.set({
+        name: name,
+        status: "STOPPED",
+        liveUrl: "",
+        files: filesObj,
+        createdAt: firebase.database.ServerValue.TIMESTAMP
+      });
+
+      fileInput.value = "";
+      document.getElementById("uploadProjectName").value = "";
+      showToast("ফাইল আপলোড সম্পন্ন হয়েছে!");
+      switchTab("dashboard");
+    }
+
+    async function sendBotCommand(projectId, action) {
+      if (!currentUser) return;
+
+      if (action === "stop") {
+        await db.ref(`projects/${currentUser.uid}/${projectId}`).update({
+          status: "STOPPED",
+          liveUrl: "",
+          updatedAt: firebase.database.ServerValue.TIMESTAMP
+        });
+      }
+
+      await db.ref(`botCommands/${currentUser.uid}/${projectId}`).push({
+        action: action,
+        requestedAt: firebase.database.ServerValue.TIMESTAMP
+      });
+      showToast(action.toUpperCase() + " কমান্ড পাঠানো হয়েছে...");
+    }
+
+    async function deleteProject(projectId) {
+      if (!currentUser) return;
+      if (!confirm("প্রজেক্টটি ডিলিট করতে চান?")) return;
+      await db.ref(`projects/${currentUser.uid}/${projectId}`).remove();
+      showToast("প্রজেক্ট ডিলিট হয়েছে");
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text)
+        .then(() => showToast("লিংক কপি হয়েছে!"))
+        .catch(() => showToast("কপি করা যায়নি"));
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+  </script>
+</body>
+</html>
