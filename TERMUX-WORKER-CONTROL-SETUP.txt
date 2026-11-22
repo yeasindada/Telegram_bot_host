@@ -1,0 +1,261 @@
+স্ট্রেস পারমিশন : pkg update -y && pkg upgrade -y && pkg install python cloudflared -y && termux-setup-storage
+ আর কারো পারমিশন :cp /sdcard/Download/bot_hosting_worker_control_KEYFIX.py ~/ && python ~/bot_hosting_worker_control_KEYFIX.py
+ইমেইল পাসওয়ার্ড :python -c '
+code = """#!/usr/bin/env python3
+import getpass, json, re, subprocess, sys, time, urllib.parse, urllib.request
+from pathlib import Path
+
+API_KEY = "AIzaSyDFdPaMtvNcyP_ZFecXD1tKgP-XFhm6uHw"
+DB_URL = "https://bothost-5a1e7-default-rtdb.firebaseio.com"
+BASE_DIR = Path.home() / "bot-hosting-pro" / "projects"
+ALLOWED = {".py", ".txt", ".json", ".yaml", ".yml", ".ini", ".md"}
+
+process = None
+tunnel_process = None
+active_project = None
+active_uid = None
+active_token = None
+
+def api(url, method="GET", payload=None):
+    data = None if payload is None else json.dumps(payload).encode()
+    req = urllib.request.Request(url, data=data, method=method, headers={"Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=25) as r:
+        raw = r.read().decode()
+        return json.loads(raw) if raw else None
+
+def db_url(path, token):
+    encoded = "/".join(urllib.parse.quote(p, safe="") for p in path.split("/"))
+    return f"{DB_URL}/{encoded}.json?auth={urllib.parse.quote(token)}"
+
+def db_get(path, token):
+    return api(db_url(path, token))
+
+def db_patch(path, token, payload):
+    return api(db_url(path, token), "PATCH", payload)
+
+def db_delete(path, token):
+    return api(db_url(path, token), "DELETE")
+
+def log(uid, token, text):
+    try:
+        api(db_url(f"logs/{uid}", token), "POST", {"message": text, "createdAt": {".sv": "timestamp"}})
+    except Exception:
+        pass
+
+def set_project_runtime(uid, token, project_id, status, live_url=""):
+    if not uid or not token or not project_id:
+        return
+    try:
+        db_patch(f"projects/{uid}/{project_id}", token, {
+            "status": status,
+            "liveUrl": live_url,
+            "updatedAt": {".sv": "timestamp"},
+        })
+    except Exception:
+        pass
+
+def sign_in():
+    email = input("Firebase email: ").strip()
+    password = getpass.getpass("Firebase password (not saved): ")
+    result = api(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + API_KEY,
+        "POST",
+        {"email": email, "password": password, "returnSecureToken": True},
+    )
+    return result["localId"], result["idToken"], result["refreshToken"]
+
+def refresh_token(refresh):
+    r = api(
+        "https://securetoken.googleapis.com/v1/token?key=" + API_KEY,
+        "POST",
+        {"grant_type": "refresh_token", "refresh_token": refresh},
+    )
+    return r["id_token"], r["refresh_token"]
+
+def safe_project(project_id, project):
+    stored_files = project.get("files") or {}
+    clean = {}
+    total = 0
+    for db_key, item in stored_files.items():
+        name = item.get("name", db_key) if isinstance(item, dict) else db_key
+        content = item.get("content") if isinstance(item, dict) else None
+        if (
+            not isinstance(name, str) or not name or "/" in name or "\\\\" in name
+            or name.startswith(".") or Path(name).suffix.lower() not in ALLOWED
+            or not re.fullmatch(r"[A-Za-z0-9 _().+-]+", name)
+        ):
+            raise ValueError("অগ্রহণযোগ্য filename: " + str(name))
+        if name in clean:
+            raise ValueError("একই filename একাধিকবার দেওয়া হয়েছে: " + name)
+        if not isinstance(content, str):
+            raise ValueError("ফাইল content নেই: " + name)
+        size = len(content.encode("utf-8"))
+        if size > 200 * 1024:
+            raise ValueError("২০০ KB সীমা ছাড়িয়েছে: " + name)
+        total += size
+        clean[name] = content
+    if "main.py" not in clean:
+        raise ValueError("Project-এ main.py নেই")
+    if total > 1024 * 1024:
+        raise ValueError("Project ১ MB সীমা ছাড়িয়েছে")
+    folder = BASE_DIR / re.sub(r"[^A-Za-z0-9_-]", "_", project_id)[:50]
+    folder.mkdir(parents=True, exist_ok=True)
+    for old_file in folder.iterdir():
+        if old_file.is_file() and old_file.suffix.lower() in ALLOWED:
+            old_file.unlink()
+    for name, content in clean.items():
+        (folder / name).write_text(content, encoding="utf-8")
+    return folder
+
+def start_tunnel(port=5000):
+    global tunnel_process
+    stop_tunnel()
+    try:
+        tunnel_process = subprocess.Popen(
+            ["cloudflared", "tunnel", "--url", f"http://127.0.0.1:{port}"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+        )
+        deadline = time.time() + 25
+        url_pattern = re.compile(r"https://[a-zA-Z0-9.-]+\\.trycloudflare\\.com")
+        while time.time() < deadline:
+            if tunnel_process.poll() is not None:
+                break
+            line = tunnel_process.stdout.readline() if tunnel_process.stdout else ""
+            if line:
+                match = url_pattern.search(line)
+                if match:
+                    return match.group(0)
+            time.sleep(0.1)
+    except FileNotFoundError:
+        print("cloudflared পাওয়া যায়নি।")
+    except Exception as exc:
+        print("Tunnel error:", exc)
+    return ""
+
+def stop_tunnel():
+    global tunnel_process
+    if tunnel_process and tunnel_process.poll() is None:
+        tunnel_process.terminate()
+        try:
+            tunnel_process.wait(timeout=5)
+        except subprocess.TimeoutExpired:
+            tunnel_process.kill()
+            tunnel_process.wait()
+    tunnel_process = None
+
+def stop_bot(update_firebase=True):
+    global process, active_project, active_uid, active_token
+    prev_project = active_project
+    prev_uid = active_uid
+    prev_token = active_token
+    if process and process.poll() is None:
+        process.terminate()
+        try:
+            process.wait(timeout=8)
+        except subprocess.TimeoutExpired:
+            process.kill()
+            process.wait()
+    stop_tunnel()
+    process = None
+    active_project = None
+    active_uid = None
+    active_token = None
+    if update_firebase and prev_project and prev_uid and prev_token:
+        set_project_runtime(prev_uid, prev_token, prev_project, "STOPPED", "")
+
+def start_bot(uid, token, project_id, project):
+    global process, active_project, active_uid, active_token
+    if process and process.poll() is None:
+        stop_bot()
+    folder = safe_project(project_id, project)
+    print("\\nProject files:", folder)
+    req = folder / "requirements.txt"
+    if req.exists():
+        print("requirements.txt পাওয়া গেছে। প্যাকেজ ইনস্টল হচ্ছে...")
+        subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-r", str(req)], cwd=folder, check=True)
+    print("main.py অটোমেটিক চালু হচ্ছে...")
+    process = subprocess.Popen([sys.executable, "-u", "main.py"], cwd=folder)
+    active_project = project_id
+    active_uid = uid
+    active_token = token
+    time.sleep(1.5)
+    live_url = start_tunnel(5000)
+    set_project_runtime(uid, token, project_id, "RUNNING", live_url)
+    print("Bot process started. PID:", process.pid)
+    if live_url:
+        print("LIVE LINK:", live_url)
+    log(uid, token, f"Bot started: {project.get(\x27name\x27, project_id)} | {live_url}")
+
+def process_commands(uid, token):
+    global process, active_project, active_token
+    active_token = token
+    projects = db_get(f"projects/{uid}", token) or {}
+    for project_id, project in projects.items():
+        commands = db_get(f"botCommands/{uid}/{project_id}", token) or {}
+        if not isinstance(commands, dict):
+            continue
+        for command_id, command in sorted(commands.items(), key=lambda kv: (kv[1] or {}).get("requestedAt", 0)):
+            action = (command or {}).get("action")
+            try:
+                if action == "start":
+                    start_bot(uid, token, project_id, project)
+                elif action == "stop":
+                    if active_project == project_id:
+                        stop_bot()
+                        print("Bot stopped.")
+                        log(uid, token, "Bot stopped.")
+                    else:
+                        set_project_runtime(uid, token, project_id, "STOPPED", "")
+                        print("এই Project-এর কোনো Bot Worker-এ চলছে না।")
+                elif action == "restart":
+                    if active_project == project_id:
+                        stop_bot()
+                    start_bot(uid, token, project_id, project)
+            except Exception as exc:
+                set_project_runtime(uid, token, project_id, "ERROR", "")
+                print("Command error:", exc)
+                log(uid, token, "Command error: " + str(exc))
+            finally:
+                db_delete(f"botCommands/{uid}/{project_id}/{command_id}", token)
+
+def main():
+    global process, active_project, active_uid, active_token
+    print("BOT HOSTING PRO - Termux Auto Worker")
+    uid, token, refresh = sign_in()
+    active_uid = uid
+    active_token = token
+    print("Login successful. Worker listening...")
+    last_refresh = time.time()
+    try:
+        while True:
+            if time.time() - last_refresh > 3000:
+                token, refresh = refresh_token(refresh)
+                active_token = token
+                last_refresh = time.time()
+            if process and process.poll() is not None:
+                code = process.returncode
+                print("Bot process ended. Exit code:", code)
+                if active_project:
+                    set_project_runtime(uid, token, active_project, "STOPPED", "")
+                stop_tunnel()
+                process = None
+                active_project = None
+            try:
+                process_commands(uid, token)
+            except Exception as exc:
+                print("Firebase polling error:", exc)
+            time.sleep(3)
+    except KeyboardInterrupt:
+        print("\\nWorker shutting down...")
+    finally:
+        stop_bot()
+
+if __name__ == "__main__":
+    main()
+"""
+open("/data/data/com.termux/files/home/bot_hosting_worker_control_KEYFIX.py", "w", encoding="utf-8").write(code)
+print("Worker file written successfully!")
+' && python ~/bot_hosting_worker_control_KEYFIX.py
+
