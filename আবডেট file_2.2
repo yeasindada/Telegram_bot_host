@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>BOT HOSTING PRO • Black & Gold Edition</title>
+  <style>
+    :root {
+      --bg: #090806;
+      --card: #12100c;
+      --card-2: #18140e;
+      --border: #3a2e1a;
+      --gold: #d4af37;
+      --gold-light: #f3d576;
+      --text: #f5efe2;
+      --muted: #a69982;
+      --red: #ff6b68;
+      --green: #38c172;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #1b150b 0%, var(--bg) 55%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 14px;
+    }
+
+    .app-wrap {
+      max-width: 540px;
+      margin: 0 auto;
+      padding-bottom: 30px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(145deg, #c69c2b, #6f5212);
+      color: #0b0906;
+      font-weight: 900;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(212, 175, 55, 0.25);
+    }
+
+    .brand h1 {
+      font-size: 16px;
+      letter-spacing: 0.6px;
+      color: var(--gold-light);
+    }
+
+    .brand p {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.7px;
+      margin-top: 2px;
+    }
+
+    .badge-edition {
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--gold-light);
+      font-size: 10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.5px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, var(--card-2), var(--card));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 15px;
+      margin-bottom: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    }
+
+    .hero h2 {
+      font-size: 20px;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .hero p {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .stat-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .stat-box span {
+      display: block;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.6px;
+      margin-bottom: 5px;
+    }
+
+    .stat-box strong {
+      font-size: 18px;
+      color: var(--gold-light);
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 12px;
+      scrollbar-width: none;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-btn {
+      flex: 0 0 auto;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #c69c2b, #8b6914);
+      color: #0c0905;
+      border-color: var(--gold-light);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .section-head h3 {
+      font-size: 13px;
+      color: var(--gold-light);
+      letter-spacing: 0.5px;
+    }
+
+    .section-head span {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .project-card {
+      background: #0e0c09;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 13px;
+      margin-bottom: 10px;
+    }
+
+    .proj-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .proj-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .proj-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .status-pill {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--muted);
+    }
+
+    .status-pill.RUNNING {
+      color: #5ee394;
+      border-color: rgba(56, 193, 114, 0.45);
+      background: rgba(56, 193, 114, 0.14);
+    }
+
+    .status-pill.ERROR {
+      color: #ff8a88;
+      border-color: rgba(227, 93, 91, 0.45);
+      background: rgba(227, 93, 91, 0.14);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      border: 1px solid var(--border);
+      background: var(--card-2);
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 8px 11px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #c69c2b, #8b6914);
+      color: #0d0a06;
+      border-color: var(--gold-light);
+    }
+
+    .btn-danger {
+      background: rgba(227, 93, 91, 0.15);
+      color: #ff9c9a;
+      border-color: rgba(227, 93, 91, 0.4);
+    }
+
+    .live-box {
+      background: #14110c;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 10px;
+    }
+
+    .live-label {
+      font-size: 10px;
+      color: var(--muted);
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .live-url {
+      display: block;
+      font-size: 11.5px;
+      color: var(--gold-light);
+      word-break: break-all;
+      margin-bottom: 8px;
+      text-decoration: underline;
+    }
+
+    label {
+      display: block;
+      font-size: 11.5px;
+      color: var(--gold-light);
+      margin-bottom: 5px;
+      margin-top: 10px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select,
+    textarea {
+      width: 100%;
+      background: #0c0a07;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      color: var(--text);
+      padding: 10px 12px;
+      font-size: 13px;
+      outline: none;
+    }
+
+    /* Professional Line-Synced Code Editor */
+    .pro-editor {
+      --ed-font-size: 13px;
+      --ed-line-height: 20px;
+      --ed-pad-y: 12px;
+      --ed-pad-x: 12px;
+      --gutter-w: 48px;
+      display: flex;
+      height: 320px;
+      background: #080705;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .ed-gutter {
+      width: var(--gutter-w);
+      flex: 0 0 var(--gutter-w);
+      background: #0d0b08;
+      border-right: 1px solid #292012;
+      padding-top: var(--ed-pad-y);
+      padding-bottom: var(--ed-pad-y);
+      overflow: hidden;
+      user-select: none;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: var(--ed-font-size);
+      line-height: var(--ed-line-height);
+    }
+
+    .ed-ln {
+      height: var(--ed-line-height);
+      line-height: var(--ed-line-height);
+      padding-right: 8px;
+      text-align: right;
+      font-size: 11.5px;
+      color: #7c705b;
+    }
+
+    .ed-ln.active {
+      color: var(--gold-light);
+      font-weight: 700;
+      background: rgba(212, 175, 55, 0.14);
+    }
+
+    .ed-ln.err {
+      color: var(--red);
+      font-weight: 800;
+      background: rgba(255, 107, 104, 0.16);
+    }
+
+    .ed-viewport {
+      position: relative;
+      flex: 1;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .ed-highlight,
+    .ed-textarea {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: var(--ed-pad-y) var(--ed-pad-x);
+      border: none !important;
+      border-radius: 0 !important;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: var(--ed-font-size);
+      line-height: var(--ed-line-height);
+      tab-size: 4;
+      white-space: pre;
+      overflow: auto;
+      box-sizing: border-box;
+    }
+
+    .ed-highlight {
+      color: var(--text);
+      background: transparent;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .ed-line {
+      display: block;
+      height: var(--ed-line-height);
+      line-height: var(--ed-line-height);
+      color: var(--text);
+    }
+
+    .ed-line.err-text {
+      color: var(--red);
+      font-weight: 600;
+    }
+
+    .ed-textarea {
+      color: transparent !important;
+      caret-color: var(--gold-light);
+      background: transparent !important;
+      resize: none;
+      outline: none !important;
+      z-index: 2;
+    }
+
+    .editor-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 7px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .meta-line-badge {
+      flex: 0 0 auto;
+      color: var(--gold-light);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .meta-err-list {
+      text-align: right;
+      color: #6ee7a0;
+      font-weight: 600;
+      word-break: break-word;
+    }
+
+    .meta-err-list.has-err {
+      color: var(--red);
+    }
+
+    textarea.req-area {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      min-height: 75px;
+      background: #080705;
+      color: #d7cbb4;
+    }
+
+    input[type="file"] {
+      width: 100%;
+      background: #0c0a07;
+      border: 1px dashed var(--border);
+      border-radius: 11px;
+      padding: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .code-cmd {
+      background: #080705;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 11.5px;
+      color: var(--gold-light);
+      word-break: break-all;
+      margin: 8px 0;
+    }
+
+    .quick-helper {
+      background: #14110c;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px;
+      margin-top: 10px;
+    }
+
+    .quick-helper p {
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1f190f;
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      z-index: 1200;
+      display: none;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 10.5px;
+      color: var(--muted);
+      margin-top: 16px;
+      letter-spacing: 0.4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-wrap">
+    <!-- Top Header -->
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">B</div>
+        <div>
+          <h1>BOT HOSTING PRO</h1>
+          <p>TELEGRAM BOT CONTROL PANEL</p>
+        </div>
+      </div>
+      <div class="badge-edition">• BLACK &amp; GOLD</div>
+    </div>
+
+    <!-- Login / Sign Up View -->
+    <div id="authSection" class="card">
+      <div class="section-head">
+        <h3>ACCOUNT LOGIN / SIGN UP</h3>
+        <span>Firebase Auth</span>
+      </div>
+      <p style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        আপনার Firebase অ্যাকাউন্ট দিয়ে লগইন করুন। Termux Worker-এও এই একই ইমেইল ও পাসওয়ার্ড ব্যবহার করবেন।
+      </p>
+      <label>Email Address</label>
+      <input type="email" id="authEmail" placeholder="example@gmail.com" />
+      <label>Password</label>
+      <input type="password" id="authPass" placeholder="••••••••" />
+      <div class="btn-row" style="margin-top:14px;">
+        <button class="btn btn-gold" style="flex:1;" onclick="loginUser()">LOGIN</button>
+        <button class="btn" style="flex:1;" onclick="signupUser()">CREATE ACCOUNT</button>
+      </div>
+    </div>
+
+    <!-- Main App View -->
+    <div id="mainApp" class="hidden">
+      <div class="card hero">
+        <h2>Manage your bots.</h2>
+        <p>কোড লিখুন অথবা ফাইল আপলোড করে সেভ করুন, START চাপুন এবং সরাসরি লাইভ লিংক পান।</p>
+        <div class="quick-helper">
+          <p>
+            <strong>সহজ সেটআপ:</strong> START চাপলে সেটআপ কমান্ড কপি হবে এবং Termux খোলার চেষ্টা করবে। Termux-এ কমান্ড পেস্ট করে Enter দিন, তারপর আপনার ইমেইল ও পাসওয়ার্ড দিলে বট চালু হয়ে লাইভ লিংক চলে আসবে।
+          </p>
+          <div class="btn-row" style="margin-bottom:0;">
+            <button class="btn btn-gold" onclick="copySetupAndOpenTermux()">COPY SETUP &amp; OPEN TERMUX</button>
+            <button class="btn" onclick="openTermuxOnly()">OPEN TERMUX</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <span>PROJECTS</span>
+          <strong id="statProjects">0</strong>
+        </div>
+        <div class="stat-box">
+          <span>FILES</span>
+          <strong id="statFiles">0</strong>
+        </div>
+        <div class="stat-box">
+          <span>WORKER</span>
+          <strong>AUTO</strong>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="nav-tabs">
+        <button class="tab-btn active" id="tabBtn-dashboard" onclick="switchTab('dashboard')">Dashboard</button>
+        <button class="tab-btn" id="tabBtn-editor" onclick="switchTab('editor', true)">Code Editor</button>
+        <button class="tab-btn" id="tabBtn-upload" onclick="switchTab('upload')">Upload Files</button>
+        <button class="tab-btn" id="tabBtn-worker" onclick="switchTab('worker')">Worker Setup</button>
+        <button class="tab-btn" id="tabBtn-account" onclick="switchTab('account')">Account</button>
+      </div>
+
+      <!-- Dashboard Tab -->
+      <div id="tab-dashboard" class="card">
+        <div class="section-head">
+          <h3>MY PYTHON PROJECTS</h3>
+          <span>Live Link &amp; Controls</span>
+        </div>
+        <div id="projectList">
+          <p style="font-size:12px; color:var(--muted);">লোড হচ্ছে...</p>
+        </div>
+      </div>
+
+      <!-- Code Editor Tab -->
+      <div id="tab-editor" class="card hidden">
+        <div class="section-head">
+          <h3>PYTHON CODE EDITOR</h3>
+          <span>Pydroid 3 Mode</span>
+        </div>
+        <p style="font-size:12px; color:var(--muted); margin-bottom:6px;">
+          এখানে সরাসরি নতুন Python কোড লিখুন বা পুরোনো প্রজেক্ট এডিট করে <strong>SAVE &amp; START</strong> চাপুন।
+        </p>
+
+        <label>Select Existing Project (Optional)</label>
+        <select id="editorProjectSelect" onchange="loadProjectIntoEditor()">
+          <option value="">+ Create New Project (Blank)</option>
+        </select>
+
+        <label>Project Name</label>
+        <input type="text" id="editorProjectName" placeholder="যেমন: my_mini_bot" />
+
+        <div class="btn-row" style="margin-top:10px; margin-bottom:2px;">
+          <button class="btn" onclick="insertMiniAppTemplate()">+ Mini App Design Template বসান</button>
+          <button class="btn" onclick="clearEditor()">New Blank Code</button>
+        </div>
+
+        <label>main.py (Python Code)</label>
+        <div class="pro-editor">
+          <div id="edGutter" class="ed-gutter"></div>
+          <div class="ed-viewport">
+            <div id="edHighlight" class="ed-highlight"></div>
+            <textarea
+              id="editorMainPy"
+              class="ed-textarea"
+              spellcheck="false"
+              placeholder="# এখানে নতুন Python কোড লিখুন..."
+              oninput="renderEditor()"
+              onscroll="syncScroll()"
+              onclick="updateCursorLine()"
+              onkeyup="updateCursorLine()"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="editor-meta">
+          <span id="edLineStatus" class="meta-line-badge">Line 1</span>
+          <span id="edErrorStatus" class="meta-err-list">ভুল নেই</span>
+        </div>
+
+        <label>requirements.txt (Default: requests, flask)</label>
+        <textarea id="editorReqTxt" class="req-area" spellcheck="false" placeholder="requests&#10;flask"></textarea>
+
+        <div class="btn-row" style="margin-top:14px;">
+          <button class="btn" style="flex:1;" onclick="saveEditorProject(false)">SAVE ONLY</button>
+          <button class="btn btn-gold" style="flex:1;" onclick="saveEditorProject(true)">SAVE &amp; START</button>
+        </div>
+      </div>
+
+      <!-- Upload Files Tab -->
+      <div id="tab-upload" class="card hidden">
+        <div class="section-head">
+          <h3>UPLOAD PROJECT FILES</h3>
+          <span>main.py Required</span>
+        </div>
+        <label>Project Name</label>
+        <input type="text" id="uploadProjectName" placeholder="যেমন: telegram_bot" />
+
+        <label>Select Files (.py, .txt, .json)</label>
+        <input type="file" id="uploadFilesInput" multiple accept=".py,.txt,.json,.yaml,.yml,.ini,.md" />
+
+        <button class="btn btn-gold" style="width:100%; margin-top:14px;" onclick="uploadProjectFiles()">
+          SAVE PROJECT FILES
+        </button>
+      </div>
+
+      <!-- Worker Setup Tab -->
+      <div id="tab-worker" class="card hidden">
+        <div class="section-head">
+          <h3>TERMUX WORKER SETUP</h3>
+          <span>Auto Tunnel</span>
+        </div>
+        <p style="font-size:12px; color:var(--muted); line-height:1.5;">
+          ১. নিচের বাটনে চাপলে কমান্ড কপি হবে এবং Termux ওপেন হবে (Termux-এ পেস্ট করে Enter দিন):
+        </p>
+        <div class="btn-row" style="margin-top:8px;">
+          <button class="btn btn-gold" onclick="copySetupAndOpenTermux()">COPY SETUP &amp; OPEN TERMUX</button>
+          <button class="btn" onclick="copyText(getWorkerSetupCommand())">COPY COMMAND ONLY</button>
+        </div>
+        <div class="code-cmd" id="setupCmdPreview"></div>
+        <p style="font-size:12px; color:var(--muted); line-height:1.5;">
+          ২. এরপর Termux-এ আপনার Firebase ইমেইল ও পাসওয়ার্ড দিন।
+        </p>
+        <p style="font-size:12px; color:var(--muted); line-height:1.5;">
+          ৩. স্ক্রিন বন্ধ থাকলেও বট চালু রাখতে Termux নোটিফিকেশন থেকে <strong>Acquire wakelock</strong> চালু রাখুন।
+        </p>
+      </div>
+
+      <!-- Account Tab -->
+      <div id="tab-account" class="card hidden">
+        <div class="section-head">
+          <h3>ACCOUNT SETTINGS</h3>
+          <span>Active Session</span>
+        </div>
+        <p style="font-size:12.5px; color:var(--muted); margin-bottom:12px;">
+          Logged in as: <strong id="userEmailLabel" style="color:var(--gold-light);">-</strong>
+        </p>
+        <button class="btn btn-danger" style="width:100%;" onclick="logoutUser()">LOGOUT</button>
+      </div>
+
+      <div class="footer-note">BOT HOSTING PRO • BLACK &amp; GOLD EDITION</div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- Firebase Compat SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDFdPaMtvNcyP_ZFecXD1tKgP-XFhm6uHw",
+      authDomain: "bothost-5a1e7.firebaseapp.com",
+      databaseURL: "https://bothost-5a1e7-default-rtdb.firebaseio.com",
+      projectId: "bothost-5a1e7",
+      storageBucket: "bothost-5a1e7.firebasestorage.app"
+    };
+
+    const DEFAULT_REQUIREMENTS = "requests\nflask";
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
+
+    let currentUser = null;
+    let projectsCache = {};
+    let activeLine = 1;
+
+    function findErrorLines(code) {
+      const lines = code.split("\n");
+      const errors = new Set();
+
+      let inMultiSingle = false;
+      let inMultiDouble = false;
+      let openParenLine = null;
+      let parenDepth = 0;
+      let openBracketLine = null;
+      let bracketDepth = 0;
+      let openBraceLine = null;
+      let braceDepth = 0;
+
+      for (let i = 0; i < lines.length; i++) {
+        const lineNo = i + 1;
+        const line = lines[i];
+        const trimmed = line.trim();
+
+        if (!trimmed || trimmed.startsWith("#")) continue;
+
+        if (/^\s*improt\b/.test(line)) {
+          errors.add(lineNo);
+        }
+
+        let inSingle = false;
+        let inDouble = false;
+
+        for (let j = 0; j < line.length; j++) {
+          const ch = line[j];
+          const prev = j > 0 ? line[j - 1] : "";
+          const next2 = line.slice(j, j + 3);
+
+          if (prev === "\\") continue;
+
+          if (!inMultiDouble && !inSingle && next2 === "'''") {
+            inMultiSingle = !inMultiSingle;
+            j += 2;
+            continue;
+          }
+          if (!inMultiSingle && !inSingle && next2 === '"""') {
+            inMultiDouble = !inMultiDouble;
+            j += 2;
+            continue;
+          }
+
+          if (inMultiSingle || inMultiDouble) continue;
+
+          if (!inDouble && ch === "'") {
+            inSingle = !inSingle;
+            continue;
+          }
+          if (!inSingle && ch === '"') {
+            inDouble = !inDouble;
+            continue;
+          }
+
+          if (inSingle || inDouble) continue;
+
+          if (ch === "#") break;
+
+          if (ch === "(") {
+            if (parenDepth === 0) openParenLine = lineNo;
+            parenDepth++;
+          } else if (ch === ")") {
+            parenDepth--;
+            if (parenDepth < 0) {
+              errors.add(lineNo);
+              parenDepth = 0;
+              openParenLine = null;
+            } else if (parenDepth === 0) {
+              openParenLine = null;
+            }
+          } else if (ch === "[") {
+            if (bracketDepth === 0) openBracketLine = lineNo;
+            bracketDepth++;
+          } else if (ch === "]") {
+            bracketDepth--;
+            if (bracketDepth < 0) {
+              errors.add(lineNo);
+              bracketDepth = 0;
+              openBracketLine = null;
+            } else if (bracketDepth === 0) {
+              openBracketLine = null;
+            }
+          } else if (ch === "{") {
+            if (braceDepth === 0) openBraceLine = lineNo;
+            braceDepth++;
+          } else if (ch === "}") {
+            braceDepth--;
+            if (braceDepth < 0) {
+              errors.add(lineNo);
+              braceDepth = 0;
+              openBraceLine = null;
+            } else if (braceDepth === 0) {
+              openBraceLine = null;
+            }
+          }
+        }
+
+        if (inSingle || inDouble) {
+          errors.add(lineNo);
+        }
+
+        if (
+          !inMultiSingle &&
+          !inMultiDouble &&
+          parenDepth === 0 &&
+          bracketDepth === 0 &&
+          braceDepth === 0 &&
+          /^\s*(def|class|if|elif|else|for|while|try|except|finally|with)\b/.test(line)
+        ) {
+          const cleanPart = line.replace(/#.*$/, "").trim();
+          if (!cleanPart.endsWith(":")) {
+            errors.add(lineNo);
+          }
+        }
+      }
+
+      if (inMultiSingle || inMultiDouble) {
+        errors.add(lines.length);
+      }
+      if (parenDepth > 0 && openParenLine) errors.add(openParenLine);
+      if (bracketDepth > 0 && openBracketLine) errors.add(openBracketLine);
+      if (braceDepth > 0 && openBraceLine) errors.add(openBraceLine);
+
+      return errors;
+    }
+
+    function updateCursorLine() {
+      const ta = document.getElementById("editorMainPy");
+      if (!ta) return;
+      const pos = ta.selectionStart || 0;
+      activeLine = ta.value.slice(0, pos).split("\n").length;
+      renderEditor(false);
+    }
+
+    function syncScroll() {
+      const ta = document.getElementById("editorMainPy");
+      const gutter = document.getElementById("edGutter");
+      const highlight = document.getElementById("edHighlight");
+      if (!ta || !gutter || !highlight) return;
+      gutter.scrollTop = ta.scrollTop;
+      highlight.scrollTop = ta.scrollTop;
+      highlight.scrollLeft = ta.scrollLeft;
+    }
+
+    function renderEditor(recalcCursor = true) {
+      const ta = document.getElementById("editorMainPy");
+      const gutter = document.getElementById("edGutter");
+      const highlight = document.getElementById("edHighlight");
+      const lineStatus = document.getElementById("edLineStatus");
+      const errStatus = document.getElementById("edErrorStatus");
+      if (!ta || !gutter || !highlight) return;
+
+      if (recalcCursor) {
+        const pos = ta.selectionStart || 0;
+        activeLine = ta.value.slice(0, pos).split("\n").length;
+      }
+
+      const code = ta.value;
+      const lines = code.split("\n");
+      const count = Math.max(lines.length, 1);
+      const errLines = findErrorLines(code);
+
+      let gutterHtml = "";
+      let codeHtml = "";
+
+      for (let i = 1; i <= count; i++) {
+        const isErr = errLines.has(i);
+        const isCur = i === activeLine;
+        const lnClass = isErr ? "ed-ln err" : (isCur ? "ed-ln active" : "ed-ln");
+        gutterHtml += `<div class="${lnClass}">${i}</div>`;
+
+        const raw = lines[i - 1] || "";
+        const safe = raw.length ? escapeHtml(raw) : " ";
+        codeHtml += `<span class="ed-line ${isErr ? "err-text" : ""}">${safe}</span>`;
+      }
+
+      gutter.innerHTML = gutterHtml;
+      highlight.innerHTML = codeHtml;
+
+      if (lineStatus) {
+        lineStatus.textContent = `Line ${activeLine} / ${count}`;
+      }
+
+      if (errStatus) {
+        if (errLines.size > 0) {
+          const sorted = Array.from(errLines).sort((a, b) => a - b).join(", ");
+          errStatus.className = "meta-err-list has-err";
+          errStatus.textContent = `ভুল Line: ${sorted}`;
+        } else {
+          errStatus.className = "meta-err-list";
+          errStatus.textContent = "ভুল নেই";
+        }
+      }
+
+      syncScroll();
+    }
+
+    function getWorkerSetupCommand() {
+      const workerCode = `#!/usr/bin/env python3
+import getpass, json, re, subprocess, sys, time, urllib.parse, urllib.request
+from pathlib import Path
+
+API_KEY = "AIzaSyDFdPaMtvNcyP_ZFecXD1tKgP-XFhm6uHw"
+DB_URL = "https://bothost-5a1e7-default-rtdb.firebaseio.com"
+BASE_DIR = Path.home() / "bot-hosting-pro" / "projects"
+ALLOWED = {".py", ".txt", ".json", ".yaml", ".yml", ".ini", ".md"}
+DEFAULT_DEPS = ["requests", "flask"]
+
+process = None
+tunnel_process = None
+active_project = None
+active_uid = None
+active_token = None
+
+def api(url, method="GET", payload=None):
+    data = None if payload is None else json.dumps(payload).encode()
+    req = urllib.request.Request(url, data=data, method=method, headers={"Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=25) as r:
+        raw = r.read().decode()
+        return json.loads(raw) if raw else None
+
+def db_url(path, token):
+    encoded = "/".join(urllib.parse.quote(p, safe="") for p in path.split("/"))
+    return f"{DB_URL}/{encoded}.json?auth={urllib.parse.quote(token)}"
+
+def db_get(path, token):
+    return api(db_url(path, token))
+
+def db_patch(path, token, payload):
+    return api(db_url(path, token), "PATCH", payload)
+
+def db_delete(path, token):
+    return api(db_url(path, token), "DELETE")
+
+def log(uid, token, text):
+    try:
+        api(db_url(f"logs/{uid}", token), "POST", {"message": text, "createdAt": {".sv": "timestamp"}})
+    except Exception:
+        pass
+
+def set_project_runtime(uid, token, project_id, status, live_url=""):
+    if not uid or not token or not project_id:
+        return
+    try:
+        db_patch(f"projects/{uid}/{project_id}", token, {
+            "status": status,
+            "liveUrl": live_url,
+            "updatedAt": {".sv": "timestamp"},
+        })
+    except Exception:
+        pass
+
+def sign_in():
+    email = input("Firebase email: ").strip()
+    password = getpass.getpass("Firebase password (not saved): ")
+    result = api(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + API_KEY,
+        "POST",
+        {"email": email, "password": password, "returnSecureToken": True},
+    )
+    return result["localId"], result["idToken"], result["refreshToken"]
+
+def refresh_token(refresh):
+    r = api(
+        "https://securetoken.googleapis.com/v1/token?key=" + API_KEY,
+        "POST",
+        {"grant_type": "refresh_token", "refresh_token": refresh},
+    )
+    return r["id_token"], r["refresh_token"]
+
+def safe_project(project_id, project):
+    stored_files = project.get("files") or {}
+    clean = {}
+    total = 0
+    for db_key, item in stored_files.items():
+        name = item.get("name", db_key) if isinstance(item, dict) else db_key
+        content = item.get("content") if isinstance(item, dict) else None
+        if (
+            not isinstance(name, str) or not name or "/" in name or "\\\\" in name
+            or name.startswith(".") or Path(name).suffix.lower() not in ALLOWED
+            or not re.fullmatch(r"[A-Za-z0-9 _().+-]+", name)
+        ):
+            raise ValueError("অগ্রহণযোগ্য filename: " + str(name))
+        if name in clean:
+            raise ValueError("একই filename একাধিকবার দেওয়া হয়েছে: " + name)
+        if not isinstance(content, str):
+            raise ValueError("ফাইল content নেই: " + name)
+        size = len(content.encode("utf-8"))
+        if size > 200 * 1024:
+            raise ValueError("২০০ KB সীমা ছাড়িয়েছে: " + name)
+        total += size
+        clean[name] = content
+    if "main.py" not in clean:
+        raise ValueError("Project-এ main.py নেই")
+    if total > 1024 * 1024:
+        raise ValueError("Project ১ MB সীমা ছাড়িয়েছে")
+    folder = BASE_DIR / re.sub(r"[^A-Za-z0-9_-]", "_", project_id)[:50]
+    folder.mkdir(parents=True, exist_ok=True)
+    for old_file in folder.iterdir():
+        if old_file.is_file() and old_file.suffix.lower() in ALLOWED:
+            old_file.unlink()
+    for name, content in clean.items():
+        (folder / name).write_text(content, encoding="utf-8")
+    return folder
+
+def start_tunnel(port=5000):
+    global tunnel_process
+    stop_tunnel()
+    try:
+        tunnel_process = subprocess.Popen(
+            ["cloudflared", "tunnel", "--url", f"http://127.0.0.1:{port}", "--no-autoupdate"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+        )
+        deadline = time.time() + 60
+        url_pattern = re.compile(r"https://[a-zA-Z0-9.-]+\\.trycloudflare\\.com")
+        while time.time() < deadline:
+            if tunnel_process.poll() is not None:
+                break
+            line = tunnel_process.stdout.readline() if tunnel_process.stdout else ""
+            if line:
+                match = url_pattern.search(line)
+                if match:
+                    return match.group(0)
+            time.sleep(0.1)
+    except FileNotFoundError:
+        print("cloudflared পাওয়া যায়নি।")
+    except Exception as exc:
+        print("Tunnel error:", exc)
+    return ""
+
+def stop_tunnel():
+    global tunnel_process
+    if tunnel_process and tunnel_process.poll() is None:
+        tunnel_process.terminate()
+        try:
+            tunnel_process.wait(timeout=5)
+        except subprocess.TimeoutExpired:
+            tunnel_process.kill()
+            tunnel_process.wait()
+    tunnel_process = None
+
+def stop_bot(update_firebase=True):
+    global process, active_project, active_uid, active_token
+    prev_project = active_project
+    prev_uid = active_uid
+    prev_token = active_token
+    if process and process.poll() is None:
+        process.terminate()
+        try:
+            process.wait(timeout=8)
+        except subprocess.TimeoutExpired:
+            process.kill()
+            process.wait()
+    stop_tunnel()
+    process = None
+    active_project = None
+    active_uid = None
+    active_token = None
+    if update_firebase and prev_project and prev_uid and prev_token:
+        set_project_runtime(prev_uid, prev_token, prev_project, "STOPPED", "")
+
+def start_bot(uid, token, project_id, project):
+    global process, active_project, active_uid, active_token
+    stop_bot(update_firebase=False)
+    folder = safe_project(project_id, project)
+    print("\\nProject files:", folder)
+    req = folder / "requirements.txt"
+    if req.exists() and req.read_text(encoding="utf-8").strip():
+        print("requirements.txt পাওয়া গেছে। প্যাকেজ ইনস্টল হচ্ছে...")
+        subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-r", str(req)], cwd=folder, check=True)
+    else:
+        print("ডিফল্ট প্যাকেজ (requests, flask) ইনস্টল হচ্ছে...")
+        subprocess.run([sys.executable, "-m", "pip", "install", "-q", *DEFAULT_DEPS], cwd=folder, check=True)
+    print("main.py অটোমেটিক চালু হচ্ছে...")
+    process = subprocess.Popen([sys.executable, "-u", "main.py"], cwd=folder)
+    active_project = project_id
+    active_uid = uid
+    active_token = token
+    time.sleep(1.5)
+    live_url = start_tunnel(5000)
+    set_project_runtime(uid, token, project_id, "RUNNING", live_url)
+    print("Bot process started. PID:", process.pid)
+    if live_url:
+        print("LIVE LINK:", live_url)
+    log(uid, token, f"Bot started: {project.get('name', project_id)} | {live_url}")
+
+def process_commands(uid, token):
+    global process, active_project, active_token
+    active_token = token
+    projects = db_get(f"projects/{uid}", token) or {}
+    for project_id, project in projects.items():
+        commands = db_get(f"botCommands/{uid}/{project_id}", token) or {}
+        if not isinstance(commands, dict):
+            continue
+        for command_id, command in sorted(commands.items(), key=lambda kv: (kv[1] or {}).get("requestedAt", 0)):
+            action = (command or {}).get("action")
+            try:
+                if action == "start":
+                    start_bot(uid, token, project_id, project)
+                elif action == "stop":
+                    if active_project == project_id:
+                        stop_bot()
+                        print("Bot stopped.")
+                        log(uid, token, "Bot stopped.")
+                    else:
+                        set_project_runtime(uid, token, project_id, "STOPPED", "")
+                        print("এই Project-এর কোনো Bot Worker-এ চলছে না।")
+                elif action == "restart":
+                    if active_project == project_id:
+                        stop_bot()
+                    start_bot(uid, token, project_id, project)
+            except Exception as exc:
+                set_project_runtime(uid, token, project_id, "ERROR", "")
+                print("Command error:", exc)
+                log(uid, token, "Command error: " + str(exc))
+            finally:
+                db_delete(f"botCommands/{uid}/{project_id}/{command_id}", token)
+
+def main():
+    global process, active_project, active_uid, active_token
+    print("BOT HOSTING PRO - Termux Auto Worker")
+    uid, token, refresh = sign_in()
+    active_uid = uid
+    active_token = token
+    print("Login successful. Worker listening...")
+    last_refresh = time.time()
+    try:
+        while True:
+            if time.time() - last_refresh > 3000:
+                token, refresh = refresh_token(refresh)
+                active_token = token
+                last_refresh = time.time()
+            if process and process.poll() is not None:
+                code = process.returncode
+                print("Bot process ended. Exit code:", code)
+                if active_project:
+                    set_project_runtime(uid, token, active_project, "STOPPED", "")
+                stop_tunnel()
+                process = None
+                active_project = None
+            try:
+                process_commands(uid, token)
+            except Exception as exc:
+                print("Firebase polling error:", exc)
+            time.sleep(3)
+    except KeyboardInterrupt:
+        print("\\nWorker shutting down...")
+    finally:
+        stop_bot()
+
+if __name__ == "__main__":
+    main()
+`;
+      const bytes = new TextEncoder().encode(workerCode);
+      let bin = "";
+      for (let i = 0; i < bytes.length; i++) {
+        bin += String.fromCharCode(bytes[i]);
+      }
+      const encoded = btoa(bin);
+      return `pkg update -y && pkg install python cloudflared -y && python -c "import base64, pathlib; pathlib.Path.home().joinpath('bot_hosting_worker_control_KEYFIX.py').write_text(base64.b64decode('${encoded}').decode('utf-8'), encoding='utf-8')" && python ~/bot_hosting_worker_control_KEYFIX.py`;
+    }
+
+    function openTermuxOnly() {
+      window.location.href = "intent:#Intent;package=com.termux;end";
+    }
+
+    function copySetupAndOpenTermux() {
+      const cmd = getWorkerSetupCommand();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(cmd)
+          .then(() => showToast("কমান্ড কপি হয়েছে! Termux খুলছে..."))
+          .catch(() => showToast("Termux খুলছে... কমান্ড পেস্ট করুন"));
+      } else {
+        showToast("Termux খুলছে... কমান্ড পেস্ট করুন");
+      }
+      setTimeout(() => {
+        openTermuxOnly();
+      }, 350);
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.style.display = "block";
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => {
+        t.style.display = "none";
+      }, 3000);
+    }
+
+    function switchTab(tabName, resetEditorForNew = false) {
+      ["dashboard", "editor", "upload", "worker", "account"].forEach((name) => {
+        document.getElementById("tab-" + name).classList.add("hidden");
+        document.getElementById("tabBtn-" + name).classList.remove("active");
+      });
+      document.getElementById("tab-" + tabName).classList.remove("hidden");
+      document.getElementById("tabBtn-" + tabName).classList.add("active");
+
+      if (tabName === "editor") {
+        if (resetEditorForNew) {
+          clearEditor();
+        } else {
+          renderEditor();
+        }
+      }
+      if (tabName === "worker") {
+        document.getElementById("setupCmdPreview").textContent = getWorkerSetupCommand();
+      }
+    }
+
+    function loginUser() {
+      const email = document.getElementById("authEmail").value.trim();
+      const pass = document.getElementById("authPass").value;
+      if (!email || !pass) return showToast("ইমেইল ও পাসওয়ার্ড দিন");
+      auth.signInWithEmailAndPassword(email, pass)
+        .then(() => showToast("লগইন সফল হয়েছে"))
+        .catch((err) => showToast("Error: " + err.message));
+    }
+
+    function signupUser() {
+      const email = document.getElementById("authEmail").value.trim();
+      const pass = document.getElementById("authPass").value;
+      if (!email || !pass) return showToast("ইমেইল ও পাসওয়ার্ড দিন");
+      auth.createUserWithEmailAndPassword(email, pass)
+        .then(() => showToast("অ্যাকাউন্ট তৈরি হয়েছে"))
+        .catch((err) => showToast("Error: " + err.message));
+    }
+
+    function logoutUser() {
+      auth.signOut().then(() => showToast("লগআউট সম্পন্ন"));
+    }
+
+    auth.onAuthStateChanged((user) => {
+      currentUser = user;
+      if (user) {
+        document.getElementById("authSection").classList.add("hidden");
+        document.getElementById("mainApp").classList.remove("hidden");
+        document.getElementById("userEmailLabel").textContent = user.email;
+        document.getElementById("setupCmdPreview").textContent = getWorkerSetupCommand();
+        listenProjects(user.uid);
+      } else {
+        document.getElementById("authSection").classList.remove("hidden");
+        document.getElementById("mainApp").classList.add("hidden");
+      }
+    });
+
+    function listenProjects(uid) {
+      db.ref("projects/" + uid).on("value", (snap) => {
+        projectsCache = snap.val() || {};
+        renderProjects();
+        updateEditorDropdown();
+      });
+    }
+
+    function renderProjects() {
+      const container = document.getElementById("projectList");
+      const entries = Object.entries(projectsCache);
+      let totalFiles = 0;
+
+      entries.forEach(([, proj]) => {
+        totalFiles += Object.keys(proj.files || {}).length;
+      });
+
+      document.getElementById("statProjects").textContent = entries.length;
+      document.getElementById("statFiles").textContent = totalFiles;
+
+      if (!entries.length) {
+        container.innerHTML = `<p style="font-size:12px; color:var(--muted);">এখনো কোনো প্রজেক্ট নেই। <strong>Code Editor</strong> বা <strong>Upload Files</strong> থেকে নতুন প্রজেক্ট তৈরি করুন।</p>`;
+        return;
+      }
+
+      container.innerHTML = entries.map(([id, proj]) => {
+        const status = proj.status || "STOPPED";
+        const fileCount = Object.keys(proj.files || {}).length;
+        const liveUrl = proj.liveUrl || "";
+
+        return `
+          <div class="project-card">
+            <div class="proj-top">
+              <div>
+                <div class="proj-title">${escapeHtml(proj.name || id)}</div>
+                <div class="proj-sub">${fileCount} Files • Firebase Database</div>
+              </div>
+              <span class="status-pill ${status}">${status}</span>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn btn-gold" onclick="sendBotCommand('${id}', 'start', true)">START</button>
+              <button class="btn" onclick="sendBotCommand('${id}', 'stop', false)">STOP</button>
+              <button class="btn" onclick="sendBotCommand('${id}', 'restart', false)">RESTART</button>
+              <button class="btn" onclick="editProjectCode('${id}')">EDIT CODE</button>
+              <button class="btn btn-danger" onclick="deleteProject('${id}')">DELETE</button>
+            </div>
+
+            ${liveUrl ? `
+              <div class="live-box">
+                <div class="live-label">LIVE LINK:</div>
+                <a class="live-url" href="${escapeHtml(liveUrl)}" target="_blank">${escapeHtml(liveUrl)}</a>
+                <div class="btn-row" style="margin-bottom:0;">
+                  <button class="btn btn-gold" onclick="window.open('${escapeHtml(liveUrl)}', '_blank')">OPEN LINK</button>
+                  <button class="btn" onclick="copyText('${escapeHtml(liveUrl)}')">COPY LINK</button>
+                </div>
+              </div>
+            ` : `
+              <div class="live-box">
+                <div class="live-label">LIVE LINK:</div>
+                <div style="font-size:11.5px; color:var(--muted);">START চাপলে এখানে trycloudflare.com লাইভ লিংক চলে আসবে।</div>
+              </div>
+            `}
+          </div>
+        `;
+      }).join("");
+    }
+
+    function updateEditorDropdown() {
+      const sel = document.getElementById("editorProjectSelect");
+      const currentVal = sel.value;
+      sel.innerHTML = `<option value="">+ Create New Project (Blank)</option>` +
+        Object.entries(projectsCache).map(([id, proj]) =>
+          `<option value="${id}">${escapeHtml(proj.name || id)}</option>`
+        ).join("");
+      if (currentVal && projectsCache[currentVal]) {
+        sel.value = currentVal;
+      } else {
+        sel.value = "";
+      }
+    }
+
+    function loadProjectIntoEditor() {
+      const id = document.getElementById("editorProjectSelect").value;
+      if (!id || !projectsCache[id]) {
+        document.getElementById("editorProjectName").value = "";
+        document.getElementById("editorMainPy").value = "";
+        document.getElementById("editorReqTxt").value = DEFAULT_REQUIREMENTS;
+        activeLine = 1;
+        renderEditor(false);
+        return;
+      }
+      const proj = projectsCache[id];
+      document.getElementById("editorProjectName").value = proj.name || "";
+      let mainCode = "";
+      let reqCode = DEFAULT_REQUIREMENTS;
+
+      Object.values(proj.files || {}).forEach((f) => {
+        if (f.name === "main.py") mainCode = f.content || "";
+        if (f.name === "requirements.txt" && (f.content || "").trim()) reqCode = f.content;
+      });
+
+      document.getElementById("editorMainPy").value = mainCode;
+      document.getElementById("editorReqTxt").value = reqCode;
+      activeLine = 1;
+      renderEditor(false);
+    }
+
+    function editProjectCode(projectId) {
+      switchTab("editor", false);
+      document.getElementById("editorProjectSelect").value = projectId;
+      loadProjectIntoEditor();
+    }
+
+    function clearEditor() {
+      document.getElementById("editorProjectSelect").value = "";
+      document.getElementById("editorProjectName").value = "";
+      document.getElementById("editorMainPy").value = "";
+      document.getElementById("editorReqTxt").value = DEFAULT_REQUIREMENTS;
+      activeLine = 1;
+      renderEditor(false);
+    }
+
+    function insertMiniAppTemplate() {
+      document.getElementById("editorReqTxt").value = DEFAULT_REQUIREMENTS;
+      document.getElementById("editorMainPy").value = `from flask import Flask, render_template_string
+
+BOT_TOKEN = "YOUR_BOT_TOKEN_HERE"
+app = Flask(__name__)
+
+HTML_PAGE = """
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Telegram Mini App</title>
+  <style>
+    body {
+      background: #0a0907;
+      color: #f5efe2;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 16px;
+    }
+    .box {
+      background: #16120c;
+      border: 1px solid #d4af37;
+      border-radius: 18px;
+      padding: 24px;
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+    }
+    h2 { color: #f3d576; margin-bottom: 8px; }
+    p { color: #b5a890; font-size: 14px; }
+    .btn {
+      margin-top: 16px;
+      background: linear-gradient(135deg, #c69c2b, #8b6914);
+      color: #0b0906;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: bold;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Telegram Mini App Live!</h2>
+    <p>আপনার নিজস্ব Python কোড থেকে এই ডিজাইনটি লোড হয়েছে।</p>
+    <button class="btn" onclick="alert('Bot Connected!')">START ACTION</button>
+  </div>
+</body>
+</html>
+"""
+
+@app.route("/")
+def home():
+    return render_template_string(HTML_PAGE)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+`;
+      activeLine = 1;
+      renderEditor(false);
+      showToast("Mini App টেমপ্লেট বসানো হয়েছে");
+    }
+
+    async function saveEditorProject(autoStart) {
+      if (!currentUser) return;
+      const existingId = document.getElementById("editorProjectSelect").value;
+      const name = document.getElementById("editorProjectName").value.trim() || "my_bot";
+      const mainCode = document.getElementById("editorMainPy").value;
+      const reqCode = document.getElementById("editorReqTxt").value.trim() || DEFAULT_REQUIREMENTS;
+
+      if (!mainCode.trim()) {
+        return showToast("main.py কোড খালি রাখা যাবে না!");
+      }
+
+      const files = {
+        file_000: { name: "main.py", content: mainCode },
+        file_001: { name: "requirements.txt", content: reqCode }
+      };
+
+      const projRef = existingId
+        ? db.ref(`projects/${currentUser.uid}/${existingId}`)
+        : db.ref(`projects/${currentUser.uid}`).push();
+
+      const payload = {
+        name: name,
+        files: files,
+        updatedAt: firebase.database.ServerValue.TIMESTAMP
+      };
+      if (!existingId) {
+        payload.status = "STOPPED";
+        payload.liveUrl = "";
+        payload.createdAt = firebase.database.ServerValue.TIMESTAMP;
+      }
+
+      await projRef.update(payload);
+
+      const savedId = projRef.key;
+      showToast("প্রজেক্ট সেভ হয়েছে!");
+
+      if (autoStart) {
+        await sendBotCommand(savedId, "start", true);
+        switchTab("dashboard");
+      }
+    }
+
+    async function uploadProjectFiles() {
+      if (!currentUser) return;
+      const name = document.getElementById("uploadProjectName").value.trim() || "bot";
+      const fileInput = document.getElementById("uploadFilesInput");
+      const fileList = Array.from(fileInput.files || []);
+
+      if (!fileList.length) return showToast("ফাইল নির্বাচন করুন");
+
+      const filesObj = {};
+      let hasMain = false;
+      let hasReq = false;
+
+      for (let i = 0; i < fileList.length; i++) {
+        const f = fileList[i];
+        if (f.name === "main.py") hasMain = true;
+        if (f.name === "requirements.txt") hasReq = true;
+        const text = await f.text();
+        const key = "file_" + String(i).padStart(3, "0");
+        filesObj[key] = { name: f.name, content: text };
+      }
+
+      if (!hasMain) return showToast("ফাইলগুলোর মধ্যে main.py থাকতে হবে!");
+
+      if (!hasReq) {
+        const nextKey = "file_" + String(fileList.length).padStart(3, "0");
+        filesObj[nextKey] = { name: "requirements.txt", content: DEFAULT_REQUIREMENTS };
+      }
+
+      const projRef = db.ref(`projects/${currentUser.uid}`).push();
+      await projRef.set({
+        name: name,
+        status: "STOPPED",
+        liveUrl: "",
+        files: filesObj,
+        createdAt: firebase.database.ServerValue.TIMESTAMP
+      });
+
+      fileInput.value = "";
+      document.getElementById("uploadProjectName").value = "";
+      showToast("ফাইল আপলোড সম্পন্ন হয়েছে!");
+      switchTab("dashboard");
+    }
+
+    async function sendBotCommand(projectId, action, alsoOpenTermux = false) {
+      if (!currentUser) return;
+
+      if (action === "stop") {
+        await db.ref(`projects/${currentUser.uid}/${projectId}`).update({
+          status: "STOPPED",
+          liveUrl: "",
+          updatedAt: firebase.database.ServerValue.TIMESTAMP
+        });
+      }
+
+      await db.ref(`botCommands/${currentUser.uid}/${projectId}`).push({
+        action: action,
+        requestedAt: firebase.database.ServerValue.TIMESTAMP
+      });
+
+      showToast(action.toUpperCase() + " কমান্ড পাঠানো হয়েছে...");
+
+      if (action === "start" && alsoOpenTermux) {
+        const cmd = getWorkerSetupCommand();
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(cmd).catch(() => {});
+        }
+        setTimeout(() => {
+          openTermuxOnly();
+        }, 450);
+      }
+    }
+
+    async function deleteProject(projectId) {
+      if (!currentUser) return;
+      if (!confirm("প্রজেক্টটি ডিলিট করতে চান?")) return;
+      await db.ref(`projects/${currentUser.uid}/${projectId}`).remove();
+      showToast("প্রজেক্ট ডিলিট হয়েছে");
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text)
+        .then(() => showToast("লিংক কপি হয়েছে!"))
+        .catch(() => showToast("কপি করা যায়নি"));
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+  </script>
+</body>
+</html>
